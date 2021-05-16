@@ -1,25 +1,18 @@
-name: repo-sync
+name: Sync Fork
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '* * * * 1,2,3,4,5,6,'
+    - cron: '*/5 * * * *' # every 30 minutes
+  workflow_dispatch: # on button click
 
 jobs:
-  repo-sync:
-    if: ${{ github.repository != 'FlyFriend/flyfriend.github.com' }}
+  sync:
 
     runs-on: ubuntu-latest
-    steps:  
-      - uses: actions/checkout@v2
-        with:
-          persist-credentials: false
 
-      - name: repo-sync
-        uses: repo-sync/github-sync@v2
+    steps:
+      - uses: tgymnich/fork-sync@v1.4
         with:
-          source_repo: "https://github.com/FlyFriend/flyfriend.github.com.git"
-          source_branch: "main"
-          destination_branch: "main"
-          sync_tags: "true"
-          github_token: ${{ secrets.PAT }}
+          owner: llvm
+          base: master
+          head: master
