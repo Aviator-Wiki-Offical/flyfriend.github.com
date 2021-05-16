@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '* * * * 1,2,3,4,5,6,'
-    # UTC时区，比我们东八区早8小时，上面示例为：每周一、三、五的9点。
 
 jobs:
   repo-sync:
