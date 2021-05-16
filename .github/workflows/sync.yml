@@ -17,3 +17,9 @@ jobs:
           base: main
           head: main
           token: ${{ secrets.PAT }}
+      - uses: joejordanbrown/fork-sync@v1.3.4
+        with:
+          # Owner of the forked repository
+          owner: Aviator-Wiki-Offical # optional
+          # Token for the github API
+          github_token: ${{ secrets.PAT }}
