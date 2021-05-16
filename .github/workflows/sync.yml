@@ -14,5 +14,6 @@ jobs:
       - uses: tgymnich/fork-sync@v1.4
         with:
           owner: llvm
-          base: master
-          head: master
+          base: main
+          head: main
+          token: ${{ secerts.PAT }}
