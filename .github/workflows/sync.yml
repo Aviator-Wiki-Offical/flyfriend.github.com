@@ -1,19 +1,29 @@
-name: Sync Fork
+name: Merge upstream
 
 on:
+  # 推送代码后触发
+  push:
   schedule:
-    - cron: '*/5 * * * *' # every 50 minutes
-  workflow_dispatch: # on button click
+    - cron: '*/5 * * * *'
 
 jobs:
-  sync:
-
+  merge:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: joejordanbrown/fork-sync@v1.3.4
-        with:
-          # Owner of the forked repository
-          owner: Aviator-Wiki-Offical # optional
-          # Token for the github API
-          github_token: ${{ secrets.PAT }}
+      - uses: actions/checkout@v2
+      - name: Merge upstream
+        run: |
+          # 使用自己的用户名替换 username
+          git config --global user.name 'Aviator-Wiki-Offical'
+          git config --global user.email 'Aviator-Wiki-Offical@users.noreply.github.com'
+
+          git pull --unshallow
+
+          # 自行替换要同步的上游仓库地址
+          git remote add upstream https://github.com/FlyFriend/flyfriend.github.com.git
+          git fetch upstream
+
+          # 可以自定义要同步的分支
+          git checkout -b main origin/main
+          git merge --no-edit upstream/main
+          git push origin main
