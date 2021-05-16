@@ -11,12 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: tgymnich/fork-sync@v1.4
-        with:
-          owner: llvm
-          base: main
-          head: main
-          token: ${{ secrets.PAT }}
       - uses: joejordanbrown/fork-sync@v1.3.4
         with:
           # Owner of the forked repository
